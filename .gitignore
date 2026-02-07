@@ -1,0 +1,17 @@
+# DuckDB database files
+*.duckdb
+*.duckdb.wal
+
+# R specific
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+# macOS
+.DS_Store
+
+# Temporary files
+*~
+*.swp
+*.swo
