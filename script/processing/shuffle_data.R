@@ -22,7 +22,7 @@ sampleData = function(){
   sample = pairs |> 
     filter(form2 %in% nouns) 
   
-  write_tsv(sample, 'dat/shuffled_pairs.tsv.gz')
+  write_tsv(sample, 'dat/sampled_pairs.tsv.gz')
 }
 
 # get entropy (stripped down version of calc in build_data)
@@ -47,7 +47,7 @@ getEntropy = function(s){
 
 # -- read -- #
 
-s = read_tsv('dat/shuffled_pairs.tsv.gz')
+s = read_tsv('dat/sampled_pairs.tsv.gz')
 
 # -- format -- #
 
