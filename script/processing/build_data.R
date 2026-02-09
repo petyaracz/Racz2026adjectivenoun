@@ -1,7 +1,7 @@
 ###################################################
 # extract adjective + noun pairings from webcorpus bigram list
 ###################################################
-setwd('~/Github/Racz2026adjectivenoun//')
+setwd('~/Github/Racz2026adjectivenoun/')
 library(tidyverse)
 library(arrow)
 
@@ -44,7 +44,7 @@ buildPairs = function(corpus,pairs){
     select(form,lemma,xpostag,freq,lemma_freq,corpus_size)
   
   c3 = c2 |> 
-    filter(hunspell::hunspell_check(form, dict = hunspell::dictionary(lang = 'hu_HU')))
+    filter(hunspell::hunspell_check(form, dict = hunspell::dictionary(lang = 'hu-HU')))
   
   print('Status: filtered c')
   
@@ -120,7 +120,6 @@ buildPairs = function(corpus,pairs){
     left_join(d1d) |> 
     mutate(corpus_size = corpus_size1 + corpus_size2) |> 
     select(-corpus_size1,-corpus_size2)
-  
   
   # sum bigram frequencies over caps/no caps
   d1 = d1 |> 
@@ -232,4 +231,5 @@ d7 = calcInfo(d2)
 
 # -- write -- #
 
+write_parquet(d2, 'dat/modifier_noun_pairs.parquet')
 write_tsv(d7, 'dat/modifier_noun_bigrams_noun_level.tsv.gz')
