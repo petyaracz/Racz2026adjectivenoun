@@ -100,17 +100,17 @@ compare_performance(fit0d,fit0h, metrics = 'common')
 
 summary(fit1a) # .27
 # r2_ci(fit1a)
-summary(fit1b) # .7
+summary(fit1b) # .78
 
 summary(fit2a) # .83
 # r2_ci(fit2a)
-summary(fit2b) # .9
+summary(fit2b) # .89
 
 summary(fit3a) # .4
-summary(fit3b) # .2
+summary(fit3b) # .21
 
 summary(fit4a) # .55
-summary(fit4b) # .75
+summary(fit4b) # .74
 
 plot(fit1a)
 plot(fit1b)
