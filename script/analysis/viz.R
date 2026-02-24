@@ -4,7 +4,7 @@
 
 # -- setup -- #
 
-setwd('~/Github/PokkRacz2026a/')
+setwd('~/Github/Racz2026adjectivenoun/')
 library(tidyverse)
 library(patchwork)
 library(ggthemes)
@@ -33,33 +33,41 @@ ba = b |>
 ## adj
 
 p1 = cna |> 
-  ggplot(aes(log_freq,log_odds_modified)) +
-  geom_point(alpha = .1) +
-  geom_smooth() +
+  ggplot(aes(log_freq, log_odds_modified)) +
+  geom_hex(bins = 80) +
+  scale_fill_viridis_c(trans = "log10", name = "count") +
+  geom_smooth(colour = "red") +
+  guides(fill = 'none') +
   theme_bw() +
   xlab('log10 noun token frequency') +
   ylab('log(preceding adjective/other)')
 
 p2 = cna |> 
   ggplot(aes(log_freq,modifier_max_entropy)) +
-  geom_point(alpha = .1) +
-  geom_smooth() +
+  geom_hex(bins = 80) +
+  scale_fill_viridis_c(trans = "log10", name = "count") +
+  geom_smooth(colour = "red") +
+  guides(fill = 'none') +
   theme_bw() +
   xlab('log10 noun token frequency') +
   ylab('max adjective entropy')
 
 p3 = cna |> 
   ggplot(aes(log_freq,preceding_adjective_entropy)) +
-  geom_point(alpha = .1) +
-  geom_smooth() +
+  geom_hex(bins = 80) +
+  scale_fill_viridis_c(trans = "log10", name = "count") +
+  geom_smooth(colour = "red") +
+  guides(fill = 'none') +
   theme_bw() +
   xlab('log10 noun token frequency') +
   ylab('preceding adjective entropy')
 
 p4 = cna |> 
   ggplot(aes(log_freq,expected_pmi)) +
-  geom_point(alpha = .1) +
-  geom_smooth() +
+  geom_hex(bins = 80) +
+  scale_fill_viridis_c(trans = "log10", name = "count") +
+  geom_smooth(colour = "red") +
+  guides(fill = 'none') +
   theme_bw() +
   xlab('log10 noun token frequency') +
   ylab('expected bigram pointwise mutual information')
@@ -73,44 +81,55 @@ ggsave('viz/corpus_nom_adjective.png', dpi = 'print', width = 6, height = 6)
 cn$bigram = ifelse(cn$bigram_type == 'adjective', 'adjective+noun','numeral+noun')
 
 p5 = cn |> 
-  ggplot(aes(log_freq,log_odds_modified,colour = bigram)) +
-  geom_point(alpha = .01) +
-  geom_smooth() +
+  ggplot(aes(log_freq, log_odds_modified)) +
+  geom_hex(bins = 80) +
+  scale_fill_viridis_c(trans = "log10", name = "count") +
+  geom_smooth(colour = "red") +
+  guides(fill = 'none') +
+  facet_wrap(~bigram) +
   theme_bw() +
   xlab('log10 noun token frequency') +
-  ylab('log(preceding modifier/other)') +
-  scale_colour_colorblind()
+  ylab('log(preceding modifier/other)')
 
 p6 = cn |> 
-  ggplot(aes(log_freq,modifier_max_entropy,colour = bigram)) +
-  geom_point(alpha = .01) +
-  geom_smooth() +
+  ggplot(aes(log_freq,modifier_max_entropy)) +
+  geom_hex(bins = 80) +
+  scale_fill_viridis_c(trans = "log10", name = "count") +
+  geom_smooth(colour = "red") +
+  guides(fill = 'none') +
+  facet_wrap(~bigram) +
   theme_bw() +
   xlab('log10 noun token frequency') +
   ylab('max modifier entropy') +
   scale_colour_colorblind()
 
 p7 = cn |> 
-  ggplot(aes(log_freq,preceding_adjective_entropy,colour = bigram)) +
-  geom_point(alpha = .01) +
-  geom_smooth() +
+  ggplot(aes(log_freq,preceding_adjective_entropy,colour)) +
+  geom_hex(bins = 80) +
+  scale_fill_viridis_c(trans = "log10", name = "count") +
+  geom_smooth(colour = "red") +
+  guides(fill = 'none') +
+  facet_wrap(~bigram) +
   theme_bw() +
   xlab('log10 noun token frequency') +
   ylab('preceding modifier entropy') +
   scale_colour_colorblind()
 
 p8 = cn |> 
-  ggplot(aes(log_freq,expected_pmi,colour = bigram)) +
-  geom_point(alpha = .01) +
-  geom_smooth() +
+  ggplot(aes(log_freq,expected_pmi)) +
+  geom_hex(bins = 80) +
+  scale_fill_viridis_c(trans = "log10", name = "count") +
+  geom_smooth(colour = "red") +
+  guides(fill = 'none') +
+  facet_wrap(~bigram) +
   theme_bw() +
   xlab('log10 noun token frequency') +
-  ylab('expected bigram pointwise mutual information') +
+  ylab('expected bigram\npointwise mutual information') +
   scale_colour_colorblind()
 
-p5 + p6 + p7 + p8 + plot_annotation(tag_levels = 'I') + plot_layout(guides = 'collect')
+wrap_plots(p5,p6,p7,p8, ncol = 1) + plot_annotation(tag_levels = 'I') + plot_layout(guides = 'collect')
 
-ggsave('viz/corpus_nom_adjective_noun.png', dpi = 'print', width = 6.5, height = 6)
+ggsave('viz/corpus_nom_adjective_nominal.png', dpi = 'print', width = 5, height = 10)
 
 ## burstiness based on wikipedia page counts
 

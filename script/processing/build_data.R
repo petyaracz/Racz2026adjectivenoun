@@ -1,3 +1,5 @@
+# flagged issue: corpus size was double it should be in previous runs
+
 ###################################################
 # extract adjective + noun pairings from webcorpus bigram list
 ###################################################
@@ -118,7 +120,7 @@ buildPairs = function(corpus,pairs){
     bind_rows(d1b) |> 
     left_join(d1c) |> 
     left_join(d1d) |> 
-    mutate(corpus_size = corpus_size1 + corpus_size2) |> 
+    mutate(corpus_size = corpus_size1) |> # !!!
     select(-corpus_size1,-corpus_size2)
   
   # sum bigram frequencies over caps/no caps
@@ -219,6 +221,11 @@ calcInfo = function(dat){
   return(d7)
 }
 
+# -- remove 1-2-3 from numerals -- #
+
+dp2 = dp |> 
+  filter(str_detect(X1, '^(egy|kettő|két|három|tíz|száz|ezer|10|100|1000)\\+', negate = T))
+
 # -- run -- #
 
 # test
@@ -226,7 +233,7 @@ d2t = buildPairs(ct, dt)
 d7t = calcInfo(d2t)
 
 # run
-d2 = buildPairs(c, dp)
+d2 = buildPairs(c, dp2)
 d7 = calcInfo(d2)
 
 # -- write -- #

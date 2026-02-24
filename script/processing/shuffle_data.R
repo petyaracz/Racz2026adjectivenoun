@@ -5,6 +5,7 @@ setwd('~/Github/Racz2026adjectivenoun/')
 library(tidyverse)
 library(ggthemes)
 library(arrow)
+library(patchwork)
 
 set.seed(1337)
 
@@ -51,7 +52,7 @@ s = read_tsv('dat/sampled_pairs.tsv.gz')
 
 # -- format -- #
 
-# adjectives only sir
+# adjectives only
 s = s |> 
   filter(bigram_type == 'adjective')
 
@@ -120,25 +121,34 @@ comparison |>
   ggplot(aes(sim_mean)) +
   geom_histogram()
 
-comparison |> 
+p1 = comparison |> 
   select(form2,log_freq2,preceding_adjective_entropy,sim_mean) |> 
   pivot_longer(-c(form2,log_freq2), names_to = 'type', values_to = 'entropy') |> 
   ggplot(aes(log_freq2,entropy,colour = type)) +
-  geom_point(alpha = .1) +
+  geom_point(alpha = .01) +
   geom_smooth() +
   theme_bw() +
-  scale_colour_colorblind()
+  theme(legend.position = 'bottom') +
+  scale_colour_viridis_d(option = 'H', labels = c('corpus\npreceding adjective', 'mean simulated\npreceding adjective')) +
+  xlab('log10 noun token frequency')
 
 comparison |> 
   mutate(sim_real_diff = sim_mean - preceding_adjective_entropy) |> 
   ggplot(aes(log_freq2,sim_real_diff)) +
-  geom_point(alpha = .1) +
+  geom_point(alpha = .01) +
   geom_smooth() +
   theme_bw()
 
-comparison |> 
+p2 = comparison |> 
   mutate(sim_real_diff_weighted = (sim_mean - preceding_adjective_entropy) / sim_mean) |> 
   ggplot(aes(log_freq2,sim_real_diff_weighted)) +
-  geom_point(alpha = .1) +
+  geom_point(alpha = .01) +
   geom_smooth() +
-  theme_bw()
+  theme_bw() +
+  ylab('(mean simulated adjective entropy -\npreceding  adjective entropy) /\nmean simulatedadjective entropy)') +
+  xlab('log10 noun token frequency')
+
+# -- viz -- #
+
+p1 + p2 + plot_annotation(tag_levels = 'I')
+ggsave('viz/simulated_vs_real_preceding_entropy.png', dpi = 900, width = 7, height = 4)

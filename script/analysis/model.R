@@ -4,7 +4,7 @@
 
 # -- setup -- #
 
-setwd('~/Github/PokkRacz2026a/')
+setwd('~/Github/Racz2026adjectivenoun/')
 library(tidyverse)
 library(patchwork)
 library(mgcv)
@@ -12,6 +12,30 @@ library(performance)
 library(broom)
 library(sjPlot)
 library(ggthemes)
+
+# -- fun -- #
+
+library(mgcv)
+
+r2_ci <- function(model, n_sim = 1000) {
+  # get model matrix and coefficients
+  Xp <- predict(model, type = "lpmatrix")
+  beta <- coef(model)
+  Vb <- vcov(model)
+  
+  # simulate from posterior
+  sims <- MASS::mvrnorm(n_sim, beta, Vb)
+  
+  y <- model$y
+  total_var <- var(y)
+  
+  r2_vals <- apply(sims, 1, function(b) {
+    fitted <- as.numeric(Xp %*% b)
+    1 - var(y - fitted) / total_var
+  })
+  
+  quantile(r2_vals, c(0.025, 0.5, 0.975))
+}
 
 # -- read -- #
 
@@ -74,14 +98,19 @@ compare_performance(fit0c,fit0g, metrics = 'common')
 compare_performance(fit0d,fit0h, metrics = 'common')
 # numbers and adjectives behave differently.
 
-summary(fit1a) # .1
+summary(fit1a) # .27
+# r2_ci(fit1a)
 summary(fit1b) # .7
-summary(fit2a) # .9
+
+summary(fit2a) # .83
+# r2_ci(fit2a)
 summary(fit2b) # .9
-summary(fit3a) # .3
-summary(fit3b) # .1
-summary(fit4a) # .3
-summary(fit4b) # .4
+
+summary(fit3a) # .4
+summary(fit3b) # .2
+
+summary(fit4a) # .55
+summary(fit4b) # .75
 
 plot(fit1a)
 plot(fit1b)
