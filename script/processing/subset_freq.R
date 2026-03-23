@@ -4,7 +4,7 @@
 
 set.seed(1337)
 
-setwd('~/Github/PokkRacz2026a/')
+setwd('~/Github/Racz2026adjectivenoun/')
 library(tidyverse)
 library(patchwork)
 
@@ -18,41 +18,44 @@ b2 = b |>
 # sample forms
 
 nouns = b2 |> 
-  distinct(form2,log_freq2) |> 
+  distinct(noun,log_freq) |> 
   mutate(
-    log_freq_bin = ntile(log_freq2, 10)
+    log_freq_bin = ntile(log_freq, 10)
   ) |> 
   filter(log_freq_bin == 5) |> 
-  pull(form2)
+  pull(noun)
   
 b3 = b2 |> 
-  filter(form2 %in% nouns)
+  filter(noun %in% nouns)
 
 # check
 
 b3 |>
-  distinct(form2,log_odds_modified,log_freq2) |>
-  ggplot(aes(log_odds_modified,log_freq2)) +
+  distinct(noun,log_odds_modified,log_freq) |>
+  ggplot(aes(log_odds_modified,log_freq)) +
   geom_point() +
   geom_smooth()
 
-b3 |>
-  distinct(form2,log_n_distinct_form1,log_freq2) |>
-  ggplot(aes(log_n_distinct_form1,log_freq2)) +
-  geom_point() +
-  geom_smooth()
+# NOTE: column no longer exists in current pipeline output
+# b3 |>
+#   distinct(noun,log_n_distinct_form1,log_freq) |>
+#   ggplot(aes(log_n_distinct_form1,log_freq)) +
+#   geom_point() +
+#   geom_smooth()
 
-b3 |>
-  filter(!is.na(n_distinct_form1)) |> 
-  ggplot(aes(surprisal1,log_freq2)) +
-  geom_point() +
-  geom_smooth()
+# NOTE: column no longer exists in current pipeline output
+# b3 |>
+#   filter(!is.na(n_distinct_form1)) |> 
+#   ggplot(aes(surprisal1,log_freq)) +
+#   geom_point() +
+#   geom_smooth()
 
-b3 |>
-  filter(!is.na(n_distinct_form1)) |> 
-  ggplot(aes(pmi_bigram,log_freq2)) +
-  geom_point() +
-  geom_smooth()
+# NOTE: column no longer exists in current pipeline output
+# b3 |>
+#   filter(!is.na(n_distinct_form1)) |> 
+#   ggplot(aes(pmi_bigram,log_freq)) +
+#   geom_point() +
+#   geom_smooth()
 
 # sweet
 

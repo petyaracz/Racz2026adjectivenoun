@@ -40,7 +40,7 @@ getEntropy = function(s){
     ) |>  
     summarise(
       preceding_adjective_entropy = sum(weighted_surprisal),
-      .by = c(bigram_type,form2,lemma2,xpostag2,log_freq2,freq2,log_odds_modified,corpus_size,bigram_type,log_freq_scaled)
+      .by = c(bigram_type,form2,lemma2,xpostag2,log_freq2,freq2,log_odds_modified,corpus_size,log_freq_scaled)
     ) 
 }
 
@@ -145,7 +145,7 @@ p2 = comparison |>
   geom_point(alpha = .01) +
   geom_smooth() +
   theme_bw() +
-  ylab('(mean simulated adjective entropy -\npreceding  adjective entropy) /\nmean simulatedadjective entropy)') +
+  ylab('(mean simulated adjective entropy -\npreceding adjective entropy) /\nmean simulated adjective entropy') +
   xlab('log10 noun token frequency')
 
 # -- viz -- #

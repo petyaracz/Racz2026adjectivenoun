@@ -104,7 +104,7 @@ p6 = cn |>
   scale_colour_colorblind()
 
 p7 = cn |> 
-  ggplot(aes(log_freq,preceding_adjective_entropy,colour)) +
+  ggplot(aes(log_freq,preceding_adjective_entropy)) +
   geom_hex(bins = 80) +
   scale_fill_viridis_c(trans = "log10", name = "count") +
   geom_smooth(colour = "red") +
@@ -187,7 +187,7 @@ ca |>
   scale_x_continuous(
     name = 'log10 főnév típus gyakoriság',
     sec.axis = sec_axis(
-      trans = ~ 10^. * unique(c$corpus_size) / 10^6,
+      trans = ~ 10^. * c$corpus_size[1] / 10^6,
       breaks = c(1,10,100,1000,10000,100000,1000000),
       name = "nyers gyakoriság"
     )
@@ -205,7 +205,7 @@ ca |>
   scale_x_continuous(
     name = 'log10 főnév típus gyakoriság',
     sec.axis = sec_axis(
-      trans = ~ 10^. * unique(c$corpus_size) / 10^6,
+      trans = ~ 10^. * c$corpus_size[1] / 10^6,
       breaks = c(1,10,100,1000,10000,100000,1000000),
       name = "nyers gyakoriság"
     )
@@ -223,7 +223,7 @@ ca |>
   scale_x_continuous(
     name = 'log10 főnév típus gyakoriság',
     sec.axis = sec_axis(
-      trans = ~ 10^. * unique(c$corpus_size) / 10^6,
+      trans = ~ 10^. * c$corpus_size[1] / 10^6,
       breaks = c(1,10,100,1000,10000,100000,1000000),
       name = "nyers gyakoriság"
     )
@@ -242,7 +242,7 @@ ca |>
   scale_x_continuous(
     name = 'log10 főnév típus gyakoriság',
     sec.axis = sec_axis(
-      trans = ~ 10^. * unique(c$corpus_size) / 10^6,
+      trans = ~ 10^. * c$corpus_size[1] / 10^6,
       breaks = c(1,10,100,1000,10000,100000,1000000),
       name = "nyers gyakoriság"
     )

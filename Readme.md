@@ -16,7 +16,7 @@ Hungarian webcorpus: https://hlt.bme.hu/en/resources/webcorpus2
 Bigrams: https://nessie.ilab.sztaki.hu/~levai/tokenized_data/
 Hungarian wikipedia dump: https://dumps.wikimedia.org/huwiki/20251001
 
-Download files and then update path in build_data and wiki_parser. Files are big.
+Download files and then update path in build_data and wiki_reader. Files are big.
 
 ### analysis
 

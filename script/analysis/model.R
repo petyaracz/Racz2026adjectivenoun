@@ -45,10 +45,9 @@ b = read_tsv('dat/burstiness_data.gz')
 # -- scale -- #
 
 c$log_freq_scaled = as.double(scale(c$log_freq))
-b$log10_burstiness_scaled = as.double(scale(b$log10_burstiness))
 b$log_freq_scaled = as.double(scale(b$log_freq))
 
-# -- scale -- #
+# -- subset -- #
 
 cn = c |> 
   filter(tag == 'nom') |> 
