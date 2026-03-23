@@ -4,7 +4,7 @@
 
 # -- setup -- #
 
-setwd('~/Github/PokkRacz2026a/')
+setwd('~/Github/Racz2026adjectivenoun/')
 library(tidyverse)
 library(patchwork)
 library(ggthemes)
