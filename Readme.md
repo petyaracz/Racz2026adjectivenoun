@@ -1,5 +1,7 @@
 ## Adjective + noun bigrams in the webcorpus
 
+[![DOI](https://zenodo.org/badge/1074905519.svg)](https://doi.org/10.5281/zenodo.19189176)
+
 ### building datasets
 
 1. build_data (needs hungarian webcorpus 2 bigrams)
