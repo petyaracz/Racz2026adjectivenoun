@@ -75,6 +75,7 @@ p4 = cna |>
 p1 + p2 + p3 + p4 + plot_annotation(tag_levels = 'I')
 
 ggsave('viz/corpus_nom_adjective.png', dpi = 'print', width = 6, height = 6)
+ggsave('viz/fig1.pdf', width = 6, height = 6)
 
 ## adj + num
 
@@ -130,6 +131,7 @@ p8 = cn |>
 wrap_plots(p5,p6,p7,p8, ncol = 1) + plot_annotation(tag_levels = 'I') + plot_layout(guides = 'collect')
 
 ggsave('viz/corpus_nom_adjective_nominal.png', dpi = 'print', width = 5, height = 10)
+ggsave('viz/fig2.pdf', width = 5, height = 10)
 
 ## burstiness based on wikipedia page counts
 
