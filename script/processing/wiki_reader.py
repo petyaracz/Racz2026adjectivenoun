@@ -32,6 +32,9 @@ for page in dump:
     for revision in page:
         text = (revision.text or "").lower()
         for word in words:
+            # NOTE: `in` does substring matching, not whole-word matching.
+            # Short words (e.g. "ár") will match inside longer words (e.g. "járás", "áram").
+            # Consider using re.search(r'\b' + re.escape(word) + r'\b', text) for exact word boundary matching.
             if word.lower() in text:
                 word_counts[word] += 1
         break

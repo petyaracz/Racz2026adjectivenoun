@@ -1,5 +1,7 @@
 ## Adjective + noun bigrams in the webcorpus
 
+[![DOI](https://zenodo.org/badge/1074905519.svg)](https://doi.org/10.5281/zenodo.19189176)
+
 ### building datasets
 
 1. build_data (needs hungarian webcorpus 2 bigrams)
@@ -16,7 +18,7 @@ Hungarian webcorpus: https://hlt.bme.hu/en/resources/webcorpus2
 Bigrams: https://nessie.ilab.sztaki.hu/~levai/tokenized_data/
 Hungarian wikipedia dump: https://dumps.wikimedia.org/huwiki/20251001
 
-Download files and then update path in build_data and wiki_parser. Files are big.
+Download files and then update path in build_data and wiki_reader. Files are big.
 
 ### analysis
 
