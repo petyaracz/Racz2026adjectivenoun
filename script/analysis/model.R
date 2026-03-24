@@ -189,3 +189,4 @@ p5d = plot_model(fit5d, 'pred', terms = c('log10_burstiness','log_freq_scaled'))
 p5a + p5b + p5c + p5d + plot_layout(guides = 'collect') + plot_annotation(tag_levels = 'I')
 
 ggsave('viz/wikipedia_adjective_noun.png', dpi = 'print', width = 6.5, height = 6)
+ggsave('viz/figA1.pdf', width = 6.5, height = 6)

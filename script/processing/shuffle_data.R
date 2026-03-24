@@ -152,3 +152,4 @@ p2 = comparison |>
 
 p1 + p2 + plot_annotation(tag_levels = 'I')
 ggsave('viz/simulated_vs_real_preceding_entropy.png', dpi = 900, width = 7, height = 4)
+ggsave('viz/fig3.pdf', width = 7, height = 4)
